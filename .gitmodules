@@ -1,0 +1,9 @@
+[submodule "osu"]
+	path = osu
+	url = git@github.com:Tom94/osu.git
+[submodule "osu-framework"]
+	path = osu-framework
+	url = git@github.com:Tom94/osu-framework.git
+[submodule "osu-resources"]
+	path = osu-resources
+	url = git@github.com:Tom94/osu-resources.git
