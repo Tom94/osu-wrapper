@@ -7,5 +7,6 @@ cd osu
 ./UseLocalResources.sh
 cd ..
 
-fd '(iOS|Android|SampleGame.*|^.*Templates.*|TemplateGame.*|FlappyDon.*|^.*Benchmarks|^.*SourceGeneration.*).csproj' | xargs rm
-
+rm -rf ./osu/Templates
+fd '(iOS|Android|SampleGame.*|TemplateGame.*|FlappyDon.*|^.*Benchmarks|^.*SourceGeneration.*).csproj' | xargs rm
+git update-index --skip-worktree <>
