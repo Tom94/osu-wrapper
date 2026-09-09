@@ -21,6 +21,14 @@
             allowUnfree = true;
           };
         };
+
+        ldLibraryPath = pkgs.lib.makeLibraryPath (
+          with pkgs;
+          [
+            wayland
+            libxkbcommon
+          ]
+        );
       in
       {
         devShell =
@@ -35,6 +43,7 @@
 
               libdecor
               libx11
+              libxcb
               libxcursor
               libxext
               libxfixes
@@ -43,7 +52,10 @@
               libxrandr
               libxrender
               libxscrnsaver
+              libxtst
               wayland
+              wayland-protocols
+              wayland-scanner
 
               vulkan-loader
             ];
@@ -52,14 +64,21 @@
             buildInputs =
               libs
               ++ (with pkgs; [
+
                 vulkan-headers
                 vulkan-validation-layers
                 vulkan-extension-layer
                 vulkan-tools
               ]);
 
+            nativeBuildInputs = with pkgs; [
+              cmake
+              ninja
+              pkg-config
+            ];
+
             shellHook = ''
-              export LD_LIBRARY_PATH="/run/opengl-driver/lib:${pkgs.lib.makeLibraryPath libs}:''${LD_LIBRARY_PATH:-}"
+              export LD_LIBRARY_PATH="/run/opengl-driver/lib:${pkgs.lib.makeLibraryPath libs}:${ldLibraryPath}:''${LD_LIBRARY_PATH:-}"
               export VK_LAYER_PATH="${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d:${pkgs.vulkan-extension-layer}/share/vulkan/explicit_layer.d"
             '';
           };
